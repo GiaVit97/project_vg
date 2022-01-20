@@ -1,5 +1,6 @@
 
 import math
+from tabnanny import check
 import torch
 import logging
 import numpy as np
@@ -20,11 +21,44 @@ import commons
 import network
 import datasets_ws
 
+from google.colab import drive 
+import os
+
+
+
 #### Initial setup: parser, logging...
 args = parser.parse_arguments()
 start_time = datetime.now()
+
+# If the user doesn't insert a colab folder, I keep the default folder for output
+# otherwise i change it inside the if condition
 args.output_folder = join("runs", args.exp_name, start_time.strftime('%Y-%m-%d_%H-%M-%S'))
-commons.setup_logging(args.output_folder)
+colab = False
+found_last_model = False
+
+if args.colab_folder is not None:
+    colab = True
+    logging.debug("Read folder" + args.colab_folder + "inside your drive")
+    args.output_folder = 'drive/MyDrive/'+ args.colab_folder
+
+    # now i can check if the output folder exist 
+    # in this case I resume the old train
+    if os.path.isdir(args.output_folder):
+        #check if my file exists
+        files = os.listdir(args.output_folder)
+        for f in files:
+            if f == "last_model.pth":
+                # found a saved best model
+                # put a variable to True and load it later
+                found_last_model = True
+
+    else:
+        # otherwise I create the folder and begin a new train
+        os.mkdir(args.output_folder)
+  
+
+
+commons.setup_logging(args.output_folder, resume=colab)
 commons.make_deterministic(args.seed)
 logging.info(f"Arguments: {args}")
 logging.info(f"The outputs are being saved in {args.output_folder}")
@@ -52,6 +86,7 @@ criterion_triplet = nn.TripletMarginLoss(margin=args.margin, p=2, reduction="sum
 
 best_r5 = 0
 not_improved_num = 0
+epoch_num = 0
 
 logging.info(f"Output dimension of the model is {args.features_dim}")
 
@@ -71,8 +106,21 @@ if args.type == 'NETVLAD':
 
     model = model.to(args.device)
 
+
+
+# If I found a last model, I load it
+if found_last_model is True:
+    checkpoint = torch.load(args.output_folder + "/last_model.pth")
+    epoch_num = checkpoint["epoch_num"] + 1 # start from the next epoch
+    model.load_state_dict(checkpoint["model_state_dict"]) # pytorch function
+    optimizer.load_state_dict(checkpoint["optimizer_state_dict"]) # pytorch function
+    recalls = checkpoint["recalls"]
+    best_r5 = checkpoint["best_r5"]
+    not_improved_num = checkpoint["not_improved_num"]
+
+
 #### Training loop
-for epoch_num in range(args.epochs_num):
+while epoch_num < args.epochs_num: 
     logging.info(f"Start training epoch: {epoch_num:02d}")
     
     epoch_start_time = datetime.now()
@@ -135,6 +183,7 @@ for epoch_num in range(args.epochs_num):
     logging.info(f"Recalls on val set {val_ds}: {recalls_str}")
     
     is_best = recalls[1] > best_r5
+    epoch_num += 1
     
     # Save checkpoint, which contains all training parameters
     util.save_checkpoint(args, {"epoch_num": epoch_num, "model_state_dict": model.state_dict(),
