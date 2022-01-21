@@ -21,7 +21,7 @@ import commons
 import network
 import datasets_ws
 
-from google.colab import drive 
+
 import os
 
 
@@ -91,7 +91,7 @@ epoch_num = 0
 logging.info(f"Output dimension of the model is {args.features_dim}")
 
 # Take clusters for NetVLAD
-if args.type == 'NETVLAD':
+if args.type == 'NETVLAD' and found_last_model is False:
     net_vlad = model.aggregation[1]
     initcache = join(args.datasets_folder, 'centroids', args.dataset_name + '_' + str(args.num_clusters) + '_desc_cen.hdf5')
 
