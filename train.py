@@ -111,7 +111,7 @@ if args.type == 'NETVLAD' and found_last_model is False:
 # If I found a last model, I load it
 if found_last_model is True:
     checkpoint = torch.load(args.output_folder + "/last_model.pth")
-    epoch_num = checkpoint["epoch_num"] + 1 # start from the next epoch
+    epoch_num = checkpoint["epoch_num"] # start from the next epoch
     model.load_state_dict(checkpoint["model_state_dict"]) # pytorch function
     optimizer.load_state_dict(checkpoint["optimizer_state_dict"]) # pytorch function
     recalls = checkpoint["recalls"]
