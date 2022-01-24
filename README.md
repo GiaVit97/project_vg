@@ -25,6 +25,8 @@ Then install the required packages
 
 `pip install -r requirements.txt`
 
+If you want to resume an old training when you call `train.py`, you have to pass `--colab_folder path/to/folder/containing/train_to_resume` as additional argument. This will search the folder on your Google Drive and if it find the folder, it resumes the old train.
+
 ## Train with average pooling
 
 Run
