@@ -73,9 +73,6 @@ logging.info(f"Train query set: {triplets_ds}")
 val_ds = datasets_ws.BaseDataset(args, args.datasets_folder, "pitts30k", "val")
 logging.info(f"Val set: {val_ds}")
 
-test_ds = datasets_ws.BaseDataset(args, args.datasets_folder, "pitts30k", "test")
-logging.info(f"Test set: {test_ds}")
-
 #### Initialize model
 model = network.GeoLocalizationNet(args)
 model = model.to(args.device)
@@ -211,6 +208,10 @@ logging.info(f"Trained for {epoch_num+1:02d} epochs, in total in {str(datetime.n
 best_model_state_dict = torch.load(join(args.output_folder, "best_model.pth"))["model_state_dict"]
 model.load_state_dict(best_model_state_dict)
 
-recalls, recalls_str = test.test(args, test_ds, model)
-logging.info(f"Recalls on {test_ds}: {recalls_str}")
+# Test on different dataset
+for test_dataset in ["pitts30k", "st_lucia"]:
+    test_ds = datasets_ws.BaseDataset(args, args.datasets_folder, test_dataset, "test")
+    logging.info(f"Test set: {test_ds}")
+    recalls, recalls_str = test.test(args, test_ds, model)
+    logging.info(f"Recalls on {test_ds}: {recalls_str}")
 
