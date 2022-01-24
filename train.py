@@ -183,22 +183,30 @@ while epoch_num < args.epochs_num and not_improved_num < args.patience:
     is_best = recalls[1] > best_r5
     epoch_num += 1
     
-    # Save checkpoint, which contains all training parameters
-    util.save_checkpoint(args, {"epoch_num": epoch_num, "model_state_dict": model.state_dict(),
-        "optimizer_state_dict": optimizer.state_dict(), "recalls": recalls, "best_r5": best_r5,
-        "not_improved_num": not_improved_num
-    }, is_best, filename="last_model.pth")
+    
     
     # If recall@5 did not improve for "many" epochs, stop training
     if is_best:
         logging.info(f"Improved: previous best R@5 = {best_r5:.1f}, current R@5 = {recalls[1]:.1f}")
         best_r5 = recalls[1]
         not_improved_num = 0
+
+        # Save checkpoint, which contains all training parameters
+        util.save_checkpoint(args, {"epoch_num": epoch_num, "model_state_dict": model.state_dict(),
+            "optimizer_state_dict": optimizer.state_dict(), "recalls": recalls, "best_r5": best_r5,
+            "not_improved_num": not_improved_num
+        }, is_best, filename="last_model.pth")
     else:
         not_improved_num += 1
         logging.info(f"Not improved: {not_improved_num} / {args.patience}: best R@5 = {best_r5:.1f}, current R@5 = {recalls[1]:.1f}")
         if not_improved_num >= args.patience:
             logging.info(f"Performance did not improve for {not_improved_num} epochs. Stop training.")
+
+            # Save checkpoint, which contains all training parameters
+            util.save_checkpoint(args, {"epoch_num": epoch_num, "model_state_dict": model.state_dict(),
+                "optimizer_state_dict": optimizer.state_dict(), "recalls": recalls, "best_r5": best_r5,
+                "not_improved_num": not_improved_num
+            }, is_best, filename="last_model.pth")
             break
 
 
