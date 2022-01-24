@@ -115,7 +115,8 @@ if found_last_model is True:
     best_r5 = checkpoint["best_r5"]
     not_improved_num = checkpoint["not_improved_num"]
 
-
+logging.debug(f"Patience: {args.patience}")
+logging.debug(f"not improved num: {not_improved_num}")
 #### Training loop
 while epoch_num < args.epochs_num and not_improved_num < args.patience: 
     logging.info(f"Start training epoch: {epoch_num:02d}")
