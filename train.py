@@ -117,7 +117,7 @@ if found_last_model is True:
 
 
 #### Training loop
-while epoch_num < args.epochs_num: 
+while epoch_num < args.epochs_num and not_improved_num < args.patience: 
     logging.info(f"Start training epoch: {epoch_num:02d}")
     
     epoch_start_time = datetime.now()
