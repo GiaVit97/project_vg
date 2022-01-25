@@ -13,12 +13,32 @@ import torchvision.transforms as transforms
 from torch.utils.data.dataset import Subset
 from sklearn.neighbors import NearestNeighbors
 from torch.utils.data.dataloader import DataLoader
+import parser
 
+
+args = parser.parse_arguments()
 
 base_transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
+
+
+bright_t = transforms.ColorJitter(brightness=[1,2])
+contrast_t = transforms.ColorJitter(contrast = [2,5])
+saturation_t = transforms.ColorJitter(saturation = [1,3])
+hue_t = transforms.ColorJitter(hue = 0.2)
+gs_t = transforms.Grayscale(3)
+hflip_t = transforms.RandomHorizontalFlip(p = 1)
+rp_t = transforms.RandomPerspective(p = 1, distortion_scale = 0.5)
+rot_t = transforms.RandomRotation(degrees = 90)
+
+#TODO: add rescaling (bigger and smaller images)
+aug_transformations = {
+    "CS-HF": transforms.Compose([contrast_t, saturation_t, hflip_t]),
+    "H-RP": transforms.Compose([hue_t, rp_t]),
+    "B-GS-R": transforms.Compose([bright_t, gs_t, rot_t])
+    }
 
 
 def path_to_pil_img(path):
@@ -57,6 +77,17 @@ class BaseDataset(data.Dataset):
         self.args = args
         self.dataset_name = dataset_name
         self.dataset_folder = join(datasets_folder, dataset_name, "images", split)
+
+        if args.data_aug is not None:
+            aug_transformation = aug_transformations[args.data_aug]
+            self.aug_pipeline = transforms.Compose([
+                                                transforms.RandomApply([aug_transformation], p =args.aug_prob),
+                                                transforms.ToTensor(),
+                                                transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
+                                                ])
+
+
+
         if not os.path.exists(self.dataset_folder): raise FileNotFoundError(f"Folder {self.dataset_folder} does not exist")
         
         #### Read paths and UTM coordinates for all images.
@@ -134,9 +165,20 @@ class TripletsDataset(BaseDataset):
             # At inference time return the single image. This is used for caching
             return super().__getitem__(index)
         query_index, best_positive_index, neg_indexes = torch.split(self.triplets_global_indexes[index], (1,1,self.negs_num_per_query))
-        query     =  base_transform(path_to_pil_img(self.queries_paths[query_index]))
-        positive  =  base_transform(path_to_pil_img(self.database_paths[best_positive_index]))
-        negatives = [base_transform(path_to_pil_img(self.database_paths[i])) for i in neg_indexes]
+
+
+        aug_pipeline = self.aug_pipeline
+
+        if args.data_aug is not None and self.split == "train": # we apply these data augmentation only on training set
+            query     =  aug_pipeline(path_to_pil_img(self.queries_paths[query_index]))
+            positive  =  aug_pipeline(path_to_pil_img(self.database_paths[best_positive_index]))
+            negatives = [aug_pipeline(path_to_pil_img(self.database_paths[i])) for i in neg_indexes]
+        else:
+            query     =  base_transform(path_to_pil_img(self.queries_paths[query_index]))
+            positive  =  base_transform(path_to_pil_img(self.database_paths[best_positive_index]))
+            negatives = [base_transform(path_to_pil_img(self.database_paths[i])) for i in neg_indexes]
+
+
         images = torch.stack((query, positive, *negatives), 0)
         triplets_local_indexes = torch.empty((0,3), dtype=torch.int)
         for neg_num in range(len(neg_indexes)):

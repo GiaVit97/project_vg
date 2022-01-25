@@ -24,6 +24,7 @@ def parse_arguments():
                         help="How many negatives to consider per each query in the loss")
     parser.add_argument("--neg_samples_num", type=int, default=1000,
                         help="How many negatives to use to compute the hardest ones")
+
     # Other parameters
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--device", type=str, default="cuda", choices=["cuda", "cpu"])
@@ -46,6 +47,9 @@ def parse_arguments():
     parser.add_argument("--type", type=str, default='default', help="What type of network would you use; 'GEM' or 'NETVLAD'")
     
     parser.add_argument("--colab_folder", type=str, default=None, help="In what folder you want to save the output of train.py")
+
+    parser.add_argument("--data_aug", type=str, default=None, choices=["CS-HF", "H-RP", "B-GS-R"], help="Choose the type of data augmentation you want")
+    parser.add_argument("--aug_prob", type=float, default=0.5, help="Probability to apply augmentation during training")
     
     args = parser.parse_args()
     
