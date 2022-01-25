@@ -77,6 +77,7 @@ class BaseDataset(data.Dataset):
         self.args = args
         self.dataset_name = dataset_name
         self.dataset_folder = join(datasets_folder, dataset_name, "images", split)
+        self.split = split
 
         if args.data_aug is not None:
             aug_transformation = aug_transformations[args.data_aug]
