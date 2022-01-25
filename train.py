@@ -73,9 +73,6 @@ logging.info(f"Train query set: {triplets_ds}")
 val_ds = datasets_ws.BaseDataset(args, args.datasets_folder, "pitts30k", "val")
 logging.info(f"Val set: {val_ds}")
 
-test_ds = datasets_ws.BaseDataset(args, args.datasets_folder, "pitts30k", "test")
-logging.info(f"Test set: {test_ds}")
-
 #### Initialize model
 model = network.GeoLocalizationNet(args)
 model = model.to(args.device)
@@ -118,9 +115,10 @@ if found_last_model is True:
     best_r5 = checkpoint["best_r5"]
     not_improved_num = checkpoint["not_improved_num"]
 
-
+logging.debug(f"Patience: {args.patience}")
+logging.debug(f"not improved num: {not_improved_num}")
 #### Training loop
-while epoch_num < args.epochs_num: 
+while epoch_num < args.epochs_num and not_improved_num < args.patience: 
     logging.info(f"Start training epoch: {epoch_num:02d}")
     
     epoch_start_time = datetime.now()
@@ -185,32 +183,44 @@ while epoch_num < args.epochs_num:
     is_best = recalls[1] > best_r5
     epoch_num += 1
     
-    # Save checkpoint, which contains all training parameters
-    util.save_checkpoint(args, {"epoch_num": epoch_num, "model_state_dict": model.state_dict(),
-        "optimizer_state_dict": optimizer.state_dict(), "recalls": recalls, "best_r5": best_r5,
-        "not_improved_num": not_improved_num
-    }, is_best, filename="last_model.pth")
+    
     
     # If recall@5 did not improve for "many" epochs, stop training
     if is_best:
         logging.info(f"Improved: previous best R@5 = {best_r5:.1f}, current R@5 = {recalls[1]:.1f}")
         best_r5 = recalls[1]
         not_improved_num = 0
+
+        # Save checkpoint, which contains all training parameters
+        util.save_checkpoint(args, {"epoch_num": epoch_num, "model_state_dict": model.state_dict(),
+            "optimizer_state_dict": optimizer.state_dict(), "recalls": recalls, "best_r5": best_r5,
+            "not_improved_num": not_improved_num
+        }, is_best, filename="last_model.pth")
     else:
         not_improved_num += 1
         logging.info(f"Not improved: {not_improved_num} / {args.patience}: best R@5 = {best_r5:.1f}, current R@5 = {recalls[1]:.1f}")
         if not_improved_num >= args.patience:
             logging.info(f"Performance did not improve for {not_improved_num} epochs. Stop training.")
+
+            # Save checkpoint, which contains all training parameters
+            util.save_checkpoint(args, {"epoch_num": epoch_num, "model_state_dict": model.state_dict(),
+                "optimizer_state_dict": optimizer.state_dict(), "recalls": recalls, "best_r5": best_r5,
+                "not_improved_num": not_improved_num
+            }, is_best, filename="last_model.pth")
             break
 
 
 logging.info(f"Best R@5: {best_r5:.1f}")
-logging.info(f"Trained for {epoch_num+1:02d} epochs, in total in {str(datetime.now() - start_time)[:-7]}")
+logging.info(f"Trained for {epoch_num:02d} epochs, in total in {str(datetime.now() - start_time)[:-7]}")
 
 #### Test best model on test set
 best_model_state_dict = torch.load(join(args.output_folder, "best_model.pth"))["model_state_dict"]
 model.load_state_dict(best_model_state_dict)
 
-recalls, recalls_str = test.test(args, test_ds, model)
-logging.info(f"Recalls on {test_ds}: {recalls_str}")
+# Test on different dataset
+for test_dataset in ["pitts30k", "st_lucia"]:
+    test_ds = datasets_ws.BaseDataset(args, args.datasets_folder, test_dataset, "test")
+    logging.info(f"Test set: {test_ds}")
+    recalls, recalls_str = test.test(args, test_ds, model)
+    logging.info(f"Recalls on {test_ds}: {recalls_str}")
 

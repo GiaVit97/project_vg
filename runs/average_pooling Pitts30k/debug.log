@@ -307,3 +307,26 @@
 2022-01-22 20:12:19   Extracting queries features for evaluation/testing
 2022-01-22 20:13:36   Calculating recalls
 2022-01-22 20:13:37   Recalls on < BaseDataset, pitts30k - #database: 10000; #queries: 6816 >: R@1: 61.2, R@5: 81.5, R@10: 87.8, R@20: 92.1
+2022-01-24 10:03:41   Arguments: Namespace(cache_refresh_rate=1000, colab_folder='average_pooling', dataset_name='pitts30k', datasets_folder='/content/', device='cuda', epochs_num=50, exp_name='default', infer_batch_size=16, lr=1e-05, margin=0.1, neg_samples_num=1000, negs_num_per_query=10, num_clusters=64, num_workers=8, output_folder='drive/MyDrive/average_pooling', patience=3, queries_per_epoch=5000, recall_values=[1, 5, 10, 20], seed=0, train_batch_size=4, train_positives_dist_threshold=10, type='default', val_positive_dist_threshold=25)
+2022-01-24 10:03:41   The outputs are being saved in drive/MyDrive/average_pooling
+2022-01-24 10:03:41   Using 1 GPUs and 2 CPUs
+2022-01-24 10:03:41   Loading dataset Pitts30k from folder /content/
+2022-01-24 10:03:42   There are 96 queries without any positives within the training set. They won't be considered as they're useless for training.
+2022-01-24 10:03:42   Train query set: < TripletsDataset, pitts30k - #database: 10000; #queries: 7320 >
+2022-01-24 10:03:42   Val set: < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >
+2022-01-24 10:03:42   Train only conv4 of the ResNet-18 (remove conv5), freeze the previous ones
+2022-01-24 10:03:44   Output dimension of the model is 256
+2022-01-24 10:03:52   Patience: 3
+2022-01-24 10:03:52   not improved num: 3
+2022-01-24 10:03:52   Best R@5: 81.7
+2022-01-24 10:03:52   Trained for 16 epochs, in total in 0:00:10
+2022-01-24 10:03:53   Test set: < BaseDataset, pitts30k - #database: 10000; #queries: 6816 >
+2022-01-24 10:03:53   Extracting database features for evaluation/testing
+2022-01-24 10:06:39   Extracting queries features for evaluation/testing
+2022-01-24 10:08:33   Calculating recalls
+2022-01-24 10:08:34   Recalls on < BaseDataset, pitts30k - #database: 10000; #queries: 6816 >: R@1: 61.2, R@5: 81.5, R@10: 87.8, R@20: 92.1
+2022-01-24 10:08:34   Test set: < BaseDataset, st_lucia - #database: 1549; #queries: 1464 >
+2022-01-24 10:08:34   Extracting database features for evaluation/testing
+2022-01-24 10:09:03   Extracting queries features for evaluation/testing
+2022-01-24 10:09:30   Calculating recalls
+2022-01-24 10:09:30   Recalls on < BaseDataset, st_lucia - #database: 1549; #queries: 1464 >: R@1: 28.3, R@5: 48.0, R@10: 56.8, R@20: 65.2
