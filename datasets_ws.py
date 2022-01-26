@@ -168,9 +168,10 @@ class TripletsDataset(BaseDataset):
         query_index, best_positive_index, neg_indexes = torch.split(self.triplets_global_indexes[index], (1,1,self.negs_num_per_query))
 
 
-        aug_pipeline = self.aug_pipeline
+        
 
         if args.data_aug is not None and self.split == "train": # we apply these data augmentation only on training set
+            aug_pipeline = self.aug_pipeline
             query     =  aug_pipeline(path_to_pil_img(self.queries_paths[query_index]))
             positive  =  aug_pipeline(path_to_pil_img(self.database_paths[best_positive_index]))
             negatives = [aug_pipeline(path_to_pil_img(self.database_paths[i])) for i in neg_indexes]
