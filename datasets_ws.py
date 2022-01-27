@@ -37,7 +37,9 @@ rot_t = transforms.RandomRotation(degrees = 90)
 aug_transformations = {
     "CS-HF": transforms.Compose([contrast_t, saturation_t, hflip_t]),
     "H-RP": transforms.Compose([hue_t, rp_t]),
-    "B-GS-R": transforms.Compose([bright_t, gs_t, rot_t])
+    "B-GS-R": transforms.Compose([bright_t, gs_t, rot_t]),
+    "GS": transforms.Compose([gs_t]),
+    "BCSH": transforms.Compose([bright_t, contrast_t, saturation_t, hue_t])
     }
 
 
