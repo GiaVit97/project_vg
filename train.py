@@ -78,7 +78,12 @@ model = network.GeoLocalizationNet(args)
 model = model.to(args.device)
 
 #### Setup Optimizer and Loss
-optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
+if args.optimizer=="SGD":
+    logging.debug("Using SGD optimizer")
+    optimizer=torch.optim.SGD(model.parameters(), lr=args.lr, momentum=0.9)
+else:
+    logging.debug("using Adam optimizer")
+    optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
 criterion_triplet = nn.TripletMarginLoss(margin=args.margin, p=2, reduction="sum")
 
 best_r5 = 0
