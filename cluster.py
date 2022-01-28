@@ -35,7 +35,7 @@ encoder_dim = 256
 #create a baseDataset object for the given training ds, used to compute centroids 
 cluster_set = datasets_ws.BaseDataset(args, args.datasets_folder, args.dataset_name, "train")
 
-model = network.get_backbone(args)
+model = nn.Sequential(network.get_backbone(args), network.L2Norm())
 model.to(args.device)
 
 sampler = SubsetRandomSampler(np.random.choice(len(cluster_set), nIm, replace=False))
