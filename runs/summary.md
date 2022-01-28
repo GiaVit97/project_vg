@@ -1,4 +1,4 @@
-| Head    | Optimizer | LR       | Dataset  | Train_pos_dist_th | Val_pos_dist_th | Augmentation | img_size | R@5_val | R@5_test | Run  |
+| Head    | Optimizer | LR       | Test Dataset | Train_pos_dist_th | Val_pos_dist_th | Augmentation | img_size | R@5_val | R@5_test | Run  |
 |---------|-----------|----------|----------|-------------------|-----------------|--------------|----------|---------|----------|------|
 | Default | Adam      | 0.00001  | Pitts30k | 10                | 25              | /            | /        | 81.7    | 81.5     | done |
 | Default | Adam      | 0.00001  | St_lucia | 10                | 25              | /            | /        | 81.7    | 48.0     | done |
