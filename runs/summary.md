@@ -13,10 +13,10 @@
 | NetVLAD | SGD M=0.9 | 0.000001 | Pitts30k     | 10                | 25              | /            | /        |         |          |       |
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | CS-HF        | /        |         |          |       |
 | NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | CS-HF        | /        |         |          |       |
-| NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | H-RP         | /        |         |          |       |
-| NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | H-RP         | /        |         |          |       |
-| NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | B-GS-R       | /        |         |          |       |
-| NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | B-GS-R       | /        |         |          |       |
+| NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | H-RP         | /        | 96.1    | 92.8     | done  |
+| NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | H-RP         | /        | 96.1    | 72.2     | done  |
+| NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | B-GS-R       | /        | 93.8    | 91.5     | done  |
+| NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | B-GS-R       | /        | 93.8    | 64.4     | done  |
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | GS           | /        |         |          |       |
 | NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | GS           | /        |         |          |       |
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | BCSH         | /        |         |          |       |
