@@ -59,6 +59,7 @@ def parse_arguments():
     parser.add_argument("--img_height", type=int, default=None, help="Height of images used")
     # Tester
     parser.add_argument("--test_datasets", type=str, default="pitts30k", help="List of test datasets, comma separated")
+    parser.add_argument("--model_folder", type=str, default=None, help="Folder of the model used for test")
     
     args = parser.parse_args()
     
