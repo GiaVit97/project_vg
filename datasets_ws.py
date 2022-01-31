@@ -146,7 +146,7 @@ class TripletsDataset(BaseDataset):
         self.is_inference = False
 
         if self.args.img_width is not None and self.args.img_height is not None:
-            logging.info(f"Images resized to {self.args.img_width}x{self.args.img_heigth}")
+            logging.info(f"Images resized to {self.args.img_width}x{self.args.img_height}")
 
         # Find hard_positives_per_query, which are within train_positives_dist_threshold (10 meters)
         knn = NearestNeighbors(n_jobs=-1)
