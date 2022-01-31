@@ -2,7 +2,7 @@ import test
 import parser
 
 args = parser.parse_arguments()
-best_model_state_dict = torch.load(join(args.output_folder, "best_model.pth"))["model_state_dict"]
+best_model_state_dict = torch.load(join(args.model_folder, "best_model.pth"))["model_state_dict"]
 model.load_state_dict(best_model_state_dict)
 
 # Test on different dataset
