@@ -28,7 +28,7 @@ best_model_state_dict = torch.load(join(args.model_folder, "best_model.pth"))["m
 model.load_state_dict(best_model_state_dict)
 
 # Test on different dataset
-for test_dataset in args.test_datasets.slpit(","):
+for test_dataset in args.test_datasets.split(","):
     test_ds = datasets_ws.BaseDataset(args, args.datasets_folder, test_dataset, "test")
     logging.info(f"Test set: {test_ds}")
     recalls, recalls_str = test.test(args, test_ds, model)
