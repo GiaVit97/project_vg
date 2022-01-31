@@ -53,6 +53,12 @@ def parse_arguments():
 
     parser.add_argument("--data_aug", type=str, default=None, choices=["CS-HF", "H-RP", "B-GS-R", "GS", "BCSH"], help="Choose the type of data augmentation you want")
     parser.add_argument("--aug_prob", type=float, default=0.5, help="Probability to apply augmentation during training")
+
+    # Images parameters
+    parser.add_argument("--img_width", type=int, default=None, help="Width of images used")
+    parser.add_argument("--img_height", type=int, default=None, help="Height of images used")
+    # Tester
+    parser.add_argument("--test_datasets", type=str, default="pitts30k", help="List of test datasets, comma separated")
     
     args = parser.parse_args()
     
