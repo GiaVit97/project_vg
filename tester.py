@@ -23,7 +23,7 @@ args = parser.parse_arguments()
 
 start_time = datetime.now()
 args.output_folder = join("tests", start_time.strftime('%Y-%m-%d_%H-%M-%S'))
-commons.setup_logging(args.output_folder, resume=colab)
+commons.setup_logging(args.output_folder)
 
 model = network.GeoLocalizationNet(args)
 model = model.to(args.device)
