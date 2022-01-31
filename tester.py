@@ -20,6 +20,10 @@ import datasets_ws
 import os
 
 args = parser.parse_arguments()
+
+model = network.GeoLocalizationNet(args)
+model = model.to(args.device)
+
 best_model_state_dict = torch.load(join(args.model_folder, "best_model.pth"))["model_state_dict"]
 model.load_state_dict(best_model_state_dict)
 
