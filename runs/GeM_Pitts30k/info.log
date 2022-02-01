@@ -151,3 +151,16 @@ Traceback (most recent call last):
     if not os.path.exists(self.dataset_folder): raise FileNotFoundError(f"Folder {self.dataset_folder} does not exist")
 FileNotFoundError: Folder /content/st_lucia/images/test does not exist
 
+2022-01-28 21:11:00   Arguments: Namespace(aug_prob=0.5, cache_refresh_rate=1000, colab_folder='gem', data_aug=None, dataset_name='pitts30k', datasets_folder='/content/', device='cuda', epochs_num=50, exp_name='default', infer_batch_size=16, lr=1e-05, margin=0.1, neg_samples_num=1000, negs_num_per_query=10, num_clusters=64, num_workers=8, optimizer='adam', output_folder='drive/MyDrive/gem', patience=3, queries_per_epoch=5000, recall_values=[1, 5, 10, 20], seed=0, train_batch_size=4, train_positives_dist_threshold=10, type='GEM', val_positive_dist_threshold=25)
+2022-01-28 21:11:00   The outputs are being saved in drive/MyDrive/gem
+2022-01-28 21:11:00   Using 1 GPUs and 2 CPUs
+2022-01-28 21:11:01   There are 96 queries without any positives within the training set. They won't be considered as they're useless for training.
+2022-01-28 21:11:01   Train query set: < TripletsDataset, pitts30k - #database: 10000; #queries: 7320 >
+2022-01-28 21:11:01   Val set: < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >
+2022-01-28 21:11:05   Output dimension of the model is 256
+2022-01-28 21:11:06   Best R@5: 89.9
+2022-01-28 21:11:06   Trained for 20 epochs, in total in 0:00:06
+2022-01-28 21:11:08   Test set: < BaseDataset, pitts30k - #database: 10000; #queries: 6816 >
+2022-01-28 21:14:14   Recalls on < BaseDataset, pitts30k - #database: 10000; #queries: 6816 >: R@1: 75.4, R@5: 89.1, R@10: 92.8, R@20: 95.3
+2022-01-28 21:14:14   Test set: < BaseDataset, st_lucia - #database: 1549; #queries: 1464 >
+2022-01-28 21:14:51   Recalls on < BaseDataset, st_lucia - #database: 1549; #queries: 1464 >: R@1: 48.9, R@5: 68.3, R@10: 75.1, R@20: 80.6
