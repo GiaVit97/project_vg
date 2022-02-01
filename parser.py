@@ -60,7 +60,8 @@ def parse_arguments():
     # Testing
     parser.add_argument("--test_datasets", type=str, default="pitts30k", help="List of test datasets, comma separated")
     parser.add_argument("--model_folder", type=str, default=None, help="Folder of the model used for test")
-    
+    parser.add_argument("--test_only", type=bool, default=False, help="Skip train")
+
     args = parser.parse_args()
     
     if args.queries_per_epoch % args.cache_refresh_rate != 0:
