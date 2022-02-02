@@ -18,8 +18,8 @@
 | NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | H-RP         | /        | 96.1    | 72.2     | done |
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | B-GS-R       | /        | 93.8    | 91.5     | done |
 | NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | B-GS-R       | /        | 93.8    | 64.4     | done |
-| NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | GS           | /        |         |          |      |
-| NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | GS           | /        |         |          |      |
+| NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | GS           | /        |         |          | Giacomo |
+| NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | GS           | /        |         |          | Giacomo |
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | BCSH         | /        | 95.7    | 92.5     | done |
 | NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | BCSH         | /        | 95.7    | 82.1     | done |
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 10              | /            | /        | /       | 88.3     | done |
