@@ -20,7 +20,7 @@ class GeoLocalizationNet(nn.Module):
         self.attention = None
 
         if args.att == 'CBAM':
-            self.attention = CBAM(64)
+            self.attention = CBAM(256)
         
         if args.type == 'NETVLAD':
             #NetVLAD type
