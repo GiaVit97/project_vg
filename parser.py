@@ -53,6 +53,8 @@ def parse_arguments():
 
     parser.add_argument("--data_aug", type=str, default=None, choices=["CS-HF", "H-RP", "B-GS-R", "GS", "BCSH"], help="Choose the type of data augmentation you want")
     parser.add_argument("--aug_prob", type=float, default=0.5, help="Probability to apply augmentation during training")
+
+    parser.add_argument("--att", type=str, default='default', help="Attention layer (CBAM)")
     
     args = parser.parse_args()
     
