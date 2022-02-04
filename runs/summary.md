@@ -25,3 +25,5 @@
 | NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | BCSH         | /        | 95.7    | 82.1     | done    |
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 10              | /            | /        | /       | 88.3     | done    |
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 40              | /            | /        | /       | 94.7     | done    |
+| NetVLAD | Adam      | 0.00001  | Pitts30k     | 5                 | 25              | /            | /        | /       | 94.7     | done    |
+| NetVLAD | Adam      | 0.00001  | Pitts30k     | 15                | 25              | /            | /        | /       | 94.7     | done    |
