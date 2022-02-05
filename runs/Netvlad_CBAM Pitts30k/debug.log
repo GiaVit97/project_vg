@@ -1,0 +1,227 @@
+2022-02-03 16:58:21   Arguments: Namespace(att='CBAM', aug_prob=0.5, cache_refresh_rate=1000, colab_folder='Netvlad_CBAM', data_aug=None, dataset_name='pitts30k', datasets_folder='/content/', device='cuda', epochs_num=50, exp_name='default', infer_batch_size=16, lr=1e-05, margin=0.1, neg_samples_num=1000, negs_num_per_query=10, num_clusters=64, num_workers=8, optimizer='adam', output_folder='drive/MyDrive/Netvlad_CBAM', patience=3, queries_per_epoch=5000, recall_values=[1, 5, 10, 20], seed=0, train_batch_size=4, train_positives_dist_threshold=10, type='NETVLAD', val_positive_dist_threshold=25)
+2022-02-03 16:58:21   The outputs are being saved in drive/MyDrive/Netvlad_CBAM
+2022-02-03 16:58:21   Using 1 GPUs and 2 CPUs
+2022-02-03 16:58:21   Loading dataset Pitts30k from folder /content/
+2022-02-03 16:58:22   There are 96 queries without any positives within the training set. They won't be considered as they're useless for training.
+2022-02-03 16:58:22   Train query set: < TripletsDataset, pitts30k - #database: 10000; #queries: 7320 >
+2022-02-03 16:58:22   Val set: < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >
+2022-02-03 16:58:22   Train only conv4 of the ResNet-18 (remove conv5), freeze the previous ones
+2022-02-03 16:58:22   Using NetVlad network
+2022-02-03 16:58:24   using Adam optimizer
+2022-02-03 16:58:24   Output dimension of the model is 16384
+2022-02-03 16:58:24   Patience: 3
+2022-02-03 16:58:24   not improved num: 0
+2022-02-03 16:58:24   Start training epoch: 00
+2022-02-03 16:58:24   Cache: 0 / 5
+2022-02-03 16:58:29   
+Traceback (most recent call last):
+  File "project_vg/train.py", line 139, in <module>
+    triplets_ds.compute_triplets(args, model)
+  File "/content/project_vg/datasets_ws.py", line 252, in compute_triplets
+    cache = self.compute_cache(args, model, subset_ds, (len(self), args.features_dim))
+  File "/content/project_vg/datasets_ws.py", line 212, in compute_cache
+    features = model(images)
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/content/project_vg/network.py", line 44, in forward
+    x = self.attention(x)
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/content/project_vg/cbam.py", line 92, in forward
+    x_out = self.ChannelGate(x)
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/content/project_vg/cbam.py", line 42, in forward
+    channel_att_raw = self.mlp( avg_pool )
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/modules/container.py", line 117, in forward
+    input = module(input)
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/modules/linear.py", line 93, in forward
+    return F.linear(input, self.weight, self.bias)
+  File "/usr/local/lib/python3.7/dist-packages/torch/nn/functional.py", line 1690, in linear
+    ret = torch.addmm(bias, input, weight.t())
+RuntimeError: mat1 dim 1 must match mat2 dim 0
+
+2022-02-03 17:01:41   Arguments: Namespace(att='CBAM', aug_prob=0.5, cache_refresh_rate=1000, colab_folder='Netvlad_CBAM', data_aug=None, dataset_name='pitts30k', datasets_folder='/content/', device='cuda', epochs_num=50, exp_name='default', infer_batch_size=16, lr=1e-05, margin=0.1, neg_samples_num=1000, negs_num_per_query=10, num_clusters=64, num_workers=8, optimizer='adam', output_folder='drive/MyDrive/Netvlad_CBAM', patience=3, queries_per_epoch=5000, recall_values=[1, 5, 10, 20], seed=0, train_batch_size=4, train_positives_dist_threshold=10, type='NETVLAD', val_positive_dist_threshold=25)
+2022-02-03 17:01:41   The outputs are being saved in drive/MyDrive/Netvlad_CBAM
+2022-02-03 17:01:41   Using 1 GPUs and 2 CPUs
+2022-02-03 17:01:41   Loading dataset Pitts30k from folder /content/
+2022-02-03 17:01:41   There are 96 queries without any positives within the training set. They won't be considered as they're useless for training.
+2022-02-03 17:01:41   Train query set: < TripletsDataset, pitts30k - #database: 10000; #queries: 7320 >
+2022-02-03 17:01:42   Val set: < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >
+2022-02-03 17:01:42   Train only conv4 of the ResNet-18 (remove conv5), freeze the previous ones
+2022-02-03 17:01:42   Using NetVlad network
+2022-02-03 17:01:44   using Adam optimizer
+2022-02-03 17:01:44   Output dimension of the model is 16384
+2022-02-03 17:01:44   Patience: 3
+2022-02-03 17:01:44   not improved num: 0
+2022-02-03 17:01:44   Start training epoch: 00
+2022-02-03 17:01:44   Cache: 0 / 5
+2022-02-03 17:03:02   
+Traceback (most recent call last):
+  File "project_vg/train.py", line 139, in <module>
+    triplets_ds.compute_triplets(args, model)
+  File "/content/project_vg/datasets_ws.py", line 252, in compute_triplets
+    cache = self.compute_cache(args, model, subset_ds, (len(self), args.features_dim))
+  File "/content/project_vg/datasets_ws.py", line 213, in compute_cache
+    cache[indexes.numpy()] = features.cpu().numpy()
+KeyboardInterrupt
+
+2022-02-03 17:04:22   Arguments: Namespace(att='CBAM', aug_prob=0.5, cache_refresh_rate=1000, colab_folder='Netvlad_CBAM', data_aug=None, dataset_name='pitts30k', datasets_folder='/content/', device='cuda', epochs_num=50, exp_name='default', infer_batch_size=16, lr=1e-05, margin=0.1, neg_samples_num=1000, negs_num_per_query=10, num_clusters=64, num_workers=8, optimizer='adam', output_folder='drive/MyDrive/Netvlad_CBAM', patience=3, queries_per_epoch=5000, recall_values=[1, 5, 10, 20], seed=0, train_batch_size=4, train_positives_dist_threshold=10, type='NETVLAD', val_positive_dist_threshold=25)
+2022-02-03 17:04:22   The outputs are being saved in drive/MyDrive/Netvlad_CBAM
+2022-02-03 17:04:22   Using 1 GPUs and 2 CPUs
+2022-02-03 17:04:22   Loading dataset Pitts30k from folder /content/
+2022-02-03 17:04:22   There are 96 queries without any positives within the training set. They won't be considered as they're useless for training.
+2022-02-03 17:04:22   Train query set: < TripletsDataset, pitts30k - #database: 10000; #queries: 7320 >
+2022-02-03 17:04:22   Val set: < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >
+2022-02-03 17:04:23   Train only conv4 of the ResNet-18 (remove conv5), freeze the previous ones
+2022-02-03 17:04:23   Using NetVlad network
+2022-02-03 17:04:25   using Adam optimizer
+2022-02-03 17:04:25   Output dimension of the model is 16384
+2022-02-03 17:04:25   Patience: 3
+2022-02-03 17:04:25   not improved num: 0
+2022-02-03 17:04:25   Start training epoch: 00
+2022-02-03 17:04:25   Cache: 0 / 5
+2022-02-03 17:17:20   Epoch[00](0/5): current batch triplet loss = 0.0413, average epoch triplet loss = 0.0404
+2022-02-03 17:17:20   Cache: 1 / 5
+2022-02-03 17:30:22   Epoch[00](1/5): current batch triplet loss = 0.0442, average epoch triplet loss = 0.0366
+2022-02-03 17:30:22   Cache: 2 / 5
+2022-02-03 17:43:34   Epoch[00](2/5): current batch triplet loss = 0.0101, average epoch triplet loss = 0.0336
+2022-02-03 17:43:34   Cache: 3 / 5
+2022-02-03 17:56:42   Epoch[00](3/5): current batch triplet loss = 0.0419, average epoch triplet loss = 0.0320
+2022-02-03 17:56:42   Cache: 4 / 5
+2022-02-03 18:09:52   Epoch[00](4/5): current batch triplet loss = 0.0451, average epoch triplet loss = 0.0310
+2022-02-03 18:09:52   Finished epoch 00 in 1:05:27, average epoch triplet loss = 0.0310
+2022-02-03 18:09:52   Extracting database features for evaluation/testing
+2022-02-03 18:13:30   Extracting queries features for evaluation/testing
+2022-02-03 18:16:18   Calculating recalls
+2022-02-03 18:17:01   Recalls on val set < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >: R@1: 86.2, R@5: 94.5, R@10: 96.7, R@20: 98.0
+2022-02-03 18:17:01   Improved: previous best R@5 = 0.0, current R@5 = 94.5
+2022-02-03 18:17:02   Start training epoch: 01
+2022-02-03 18:17:02   Cache: 0 / 5
+2022-02-03 18:32:42   Epoch[01](0/5): current batch triplet loss = 0.0435, average epoch triplet loss = 0.0250
+2022-02-03 18:32:42   Cache: 1 / 5
+2022-02-03 18:45:46   Epoch[01](1/5): current batch triplet loss = 0.0251, average epoch triplet loss = 0.0248
+2022-02-03 18:45:46   Cache: 2 / 5
+2022-02-03 18:58:51   Epoch[01](2/5): current batch triplet loss = 0.0279, average epoch triplet loss = 0.0243
+2022-02-03 18:58:51   Cache: 3 / 5
+2022-02-03 19:11:54   Epoch[01](3/5): current batch triplet loss = 0.0285, average epoch triplet loss = 0.0241
+2022-02-03 19:11:54   Cache: 4 / 5
+2022-02-03 19:24:57   Epoch[01](4/5): current batch triplet loss = 0.0443, average epoch triplet loss = 0.0240
+2022-02-03 19:24:57   Finished epoch 01 in 1:07:55, average epoch triplet loss = 0.0240
+2022-02-03 19:24:57   Extracting database features for evaluation/testing
+2022-02-03 19:28:34   Extracting queries features for evaluation/testing
+2022-02-03 19:31:20   Calculating recalls
+2022-02-03 19:32:01   Recalls on val set < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >: R@1: 87.9, R@5: 95.4, R@10: 97.2, R@20: 98.4
+2022-02-03 19:32:01   Improved: previous best R@5 = 94.5, current R@5 = 95.4
+2022-02-03 19:32:03   Start training epoch: 02
+2022-02-03 19:32:03   Cache: 0 / 5
+2022-02-03 19:46:27   Epoch[02](0/5): current batch triplet loss = 0.0111, average epoch triplet loss = 0.0219
+2022-02-03 19:46:27   Cache: 1 / 5
+2022-02-03 19:59:33   Epoch[02](1/5): current batch triplet loss = 0.0098, average epoch triplet loss = 0.0220
+2022-02-03 19:59:33   Cache: 2 / 5
+2022-02-03 20:12:22   Epoch[02](2/5): current batch triplet loss = 0.0028, average epoch triplet loss = 0.0217
+2022-02-03 20:12:22   Cache: 3 / 5
+2022-02-03 20:25:22   Epoch[02](3/5): current batch triplet loss = 0.0233, average epoch triplet loss = 0.0214
+2022-02-03 20:25:22   Cache: 4 / 5
+2022-02-04 08:56:05   Arguments: Namespace(att='CBAM', aug_prob=0.5, cache_refresh_rate=1000, colab_folder='Netvlad_CBAM', data_aug=None, dataset_name='pitts30k', datasets_folder='/content/', device='cuda', epochs_num=50, exp_name='default', infer_batch_size=16, lr=1e-05, margin=0.1, neg_samples_num=1000, negs_num_per_query=10, num_clusters=64, num_workers=8, optimizer='adam', output_folder='drive/MyDrive/Netvlad_CBAM', patience=3, queries_per_epoch=5000, recall_values=[1, 5, 10, 20], seed=0, train_batch_size=4, train_positives_dist_threshold=10, type='NETVLAD', val_positive_dist_threshold=25)
+2022-02-04 08:56:05   The outputs are being saved in drive/MyDrive/Netvlad_CBAM
+2022-02-04 08:56:05   Using 1 GPUs and 2 CPUs
+2022-02-04 08:56:05   Loading dataset Pitts30k from folder /content/
+2022-02-04 08:56:05   There are 96 queries without any positives within the training set. They won't be considered as they're useless for training.
+2022-02-04 08:56:05   Train query set: < TripletsDataset, pitts30k - #database: 10000; #queries: 7320 >
+2022-02-04 08:56:06   Val set: < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >
+2022-02-04 08:56:06   Train only conv4 of the ResNet-18 (remove conv5), freeze the previous ones
+2022-02-04 08:56:06   Using NetVlad network
+2022-02-04 08:56:08   using Adam optimizer
+2022-02-04 08:56:08   Output dimension of the model is 16384
+2022-02-04 08:56:11   Patience: 3
+2022-02-04 08:56:11   not improved num: 0
+2022-02-04 08:56:11   Start training epoch: 02
+2022-02-04 08:56:11   Cache: 0 / 5
+2022-02-04 09:08:27   Epoch[02](0/5): current batch triplet loss = 0.0224, average epoch triplet loss = 0.0164
+2022-02-04 09:08:27   Cache: 1 / 5
+2022-02-04 09:20:42   Epoch[02](1/5): current batch triplet loss = 0.0253, average epoch triplet loss = 0.0161
+2022-02-04 09:20:42   Cache: 2 / 5
+2022-02-04 09:32:56   Epoch[02](2/5): current batch triplet loss = 0.0036, average epoch triplet loss = 0.0156
+2022-02-04 09:32:56   Cache: 3 / 5
+2022-02-04 09:45:16   Epoch[02](3/5): current batch triplet loss = 0.0262, average epoch triplet loss = 0.0155
+2022-02-04 09:45:16   Cache: 4 / 5
+2022-02-04 09:57:34   Epoch[02](4/5): current batch triplet loss = 0.0279, average epoch triplet loss = 0.0156
+2022-02-04 09:57:34   Finished epoch 02 in 1:01:23, average epoch triplet loss = 0.0156
+2022-02-04 09:57:34   Extracting database features for evaluation/testing
+2022-02-04 10:00:59   Extracting queries features for evaluation/testing
+2022-02-04 10:03:36   Calculating recalls
+2022-02-04 10:04:19   Recalls on val set < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >: R@1: 87.9, R@5: 95.4, R@10: 97.3, R@20: 98.3
+2022-02-04 10:04:19   Improved: previous best R@5 = 95.4, current R@5 = 95.4
+2022-02-04 10:04:20   Start training epoch: 03
+2022-02-04 10:04:20   Cache: 0 / 5
+2022-02-04 10:17:16   Epoch[03](0/5): current batch triplet loss = 0.0290, average epoch triplet loss = 0.0154
+2022-02-04 10:17:16   Cache: 1 / 5
+2022-02-04 10:29:41   Epoch[03](1/5): current batch triplet loss = 0.0164, average epoch triplet loss = 0.0154
+2022-02-04 10:29:41   Cache: 2 / 5
+2022-02-04 10:42:27   Epoch[03](2/5): current batch triplet loss = 0.0124, average epoch triplet loss = 0.0150
+2022-02-04 10:42:27   Cache: 3 / 5
+2022-02-04 10:54:46   Epoch[03](3/5): current batch triplet loss = 0.0250, average epoch triplet loss = 0.0151
+2022-02-04 10:54:46   Cache: 4 / 5
+2022-02-04 11:07:23   Epoch[03](4/5): current batch triplet loss = 0.0312, average epoch triplet loss = 0.0151
+2022-02-04 11:07:23   Finished epoch 03 in 1:03:03, average epoch triplet loss = 0.0151
+2022-02-04 11:07:23   Extracting database features for evaluation/testing
+2022-02-04 11:10:48   Extracting queries features for evaluation/testing
+2022-02-04 11:13:25   Calculating recalls
+2022-02-04 11:14:07   Recalls on val set < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >: R@1: 88.4, R@5: 95.7, R@10: 97.3, R@20: 98.4
+2022-02-04 11:14:07   Improved: previous best R@5 = 95.4, current R@5 = 95.7
+2022-02-04 11:14:07   Start training epoch: 04
+2022-02-04 11:14:07   Cache: 0 / 5
+2022-02-04 11:27:59   Epoch[04](0/5): current batch triplet loss = 0.0067, average epoch triplet loss = 0.0159
+2022-02-04 11:27:59   Cache: 1 / 5
+2022-02-04 11:40:37   Epoch[04](1/5): current batch triplet loss = 0.0106, average epoch triplet loss = 0.0162
+2022-02-04 11:40:37   Cache: 2 / 5
+2022-02-04 11:53:16   Epoch[04](2/5): current batch triplet loss = 0.0020, average epoch triplet loss = 0.0162
+2022-02-04 11:53:16   Cache: 3 / 5
+2022-02-04 12:05:32   Epoch[04](3/5): current batch triplet loss = 0.0141, average epoch triplet loss = 0.0160
+2022-02-04 12:05:32   Cache: 4 / 5
+2022-02-04 12:18:05   Epoch[04](4/5): current batch triplet loss = 0.0083, average epoch triplet loss = 0.0158
+2022-02-04 12:18:05   Finished epoch 04 in 1:03:57, average epoch triplet loss = 0.0158
+2022-02-04 12:18:05   Extracting database features for evaluation/testing
+2022-02-04 12:21:35   Extracting queries features for evaluation/testing
+2022-02-04 12:24:12   Calculating recalls
+2022-02-04 12:24:53   Recalls on val set < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >: R@1: 88.4, R@5: 95.7, R@10: 97.4, R@20: 98.4
+2022-02-04 12:24:53   Improved: previous best R@5 = 95.7, current R@5 = 95.7
+2022-02-04 12:24:54   Start training epoch: 05
+2022-02-04 12:24:54   Cache: 0 / 5
+2022-02-04 13:10:35   Arguments: Namespace(att='CBAM', aug_prob=0.5, cache_refresh_rate=1000, colab_folder='Netvlad_CBAM', data_aug=None, dataset_name='pitts30k', datasets_folder='/content/', device='cuda', epochs_num=50, exp_name='default', infer_batch_size=16, lr=1e-05, margin=0.1, neg_samples_num=1000, negs_num_per_query=10, num_clusters=64, num_workers=8, optimizer='adam', output_folder='drive/MyDrive/Netvlad_CBAM', patience=3, queries_per_epoch=5000, recall_values=[1, 5, 10, 20], seed=0, train_batch_size=4, train_positives_dist_threshold=10, type='NETVLAD', val_positive_dist_threshold=25)
+2022-02-04 13:10:35   The outputs are being saved in drive/MyDrive/Netvlad_CBAM
+2022-02-04 13:10:35   Using 1 GPUs and 2 CPUs
+2022-02-04 13:10:35   Loading dataset Pitts30k from folder /content/
+2022-02-04 13:10:35   There are 96 queries without any positives within the training set. They won't be considered as they're useless for training.
+2022-02-04 13:10:35   Train query set: < TripletsDataset, pitts30k - #database: 10000; #queries: 7320 >
+2022-02-04 13:10:35   Val set: < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >
+2022-02-04 13:10:36   Train only conv4 of the ResNet-18 (remove conv5), freeze the previous ones
+2022-02-04 13:10:36   Using NetVlad network
+2022-02-04 13:10:38   using Adam optimizer
+2022-02-04 13:10:38   Output dimension of the model is 16384
+2022-02-04 13:10:40   Patience: 3
+2022-02-04 13:10:40   not improved num: 0
+2022-02-04 13:10:40   Start training epoch: 05
+2022-02-04 13:10:40   Cache: 0 / 5
+2022-02-04 13:26:24   Epoch[05](0/5): current batch triplet loss = 0.0004, average epoch triplet loss = 0.0085
+2022-02-04 13:26:24   Cache: 1 / 5
+2022-02-04 13:42:06   Epoch[05](1/5): current batch triplet loss = 0.0110, average epoch triplet loss = 0.0087
+2022-02-04 13:42:06   Cache: 2 / 5
+2022-02-04 13:57:52   Epoch[05](2/5): current batch triplet loss = 0.0020, average epoch triplet loss = 0.0085
+2022-02-04 13:57:52   Cache: 3 / 5
+2022-02-04 14:13:31   Epoch[05](3/5): current batch triplet loss = 0.0189, average epoch triplet loss = 0.0085
+2022-02-04 14:13:31   Cache: 4 / 5
+2022-02-04 14:29:12   Epoch[05](4/5): current batch triplet loss = 0.0152, average epoch triplet loss = 0.0086
+2022-02-04 14:29:12   Finished epoch 05 in 1:18:32, average epoch triplet loss = 0.0086
+2022-02-04 14:29:12   Extracting database features for evaluation/testing
+2022-02-04 14:33:41   Extracting queries features for evaluation/testing
+2022-02-04 14:37:07   Calculating recalls
+2022-02-04 14:37:49   Recalls on val set < BaseDataset, pitts30k - #database: 10000; #queries: 7608 >: R@1: 88.3, R@5: 95.6, R@10: 97.2, R@20: 98.4
+2022-02-04 14:37:49   Not improved: 1 / 3: best R@5 = 95.7, current R@5 = 95.6
+2022-02-04 14:37:49   Start training epoch: 06
+2022-02-04 14:37:49   Cache: 0 / 5
