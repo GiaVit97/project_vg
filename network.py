@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from netvlad import NetVLAD
 from gem import GeM
+from cbam import CBAM
 
 
 class GeoLocalizationNet(nn.Module):
@@ -16,6 +17,10 @@ class GeoLocalizationNet(nn.Module):
     def __init__(self, args):
         super().__init__()
         self.backbone = get_backbone(args)
+        self.attention = None
+
+        if args.att == 'CBAM':
+            self.attention = CBAM(256)
         
         if args.type == 'NETVLAD':
             #NetVLAD type
@@ -35,6 +40,8 @@ class GeoLocalizationNet(nn.Module):
         
     def forward(self, x):
         x = self.backbone(x)
+        if self.attention is not None:
+            x = self.attention(x)
         x = self.aggregation(x)
         return x
 
