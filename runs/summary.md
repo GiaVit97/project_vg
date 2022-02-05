@@ -27,4 +27,5 @@
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 40              | /            | /         | /        | /       | 94.7     | done    |
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 5                 | 25              | /            | /         | /        |         |          |         |
 | NetVLAD | Adam      | 0.00001  | Pitts30k     | 15                | 25              | /            | /         | /        |         |          |         |
-| NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | /            | CBAM      | /        |         |          | Giacomo |
+| NetVLAD | Adam      | 0.00001  | Pitts30k     | 10                | 25              | /            | CBAM      | /        | 95.7    | 93.3     | done    |
+| NetVLAD | Adam      | 0.00001  | St_lucia     | 10                | 25              | /            | CBAM      | /        | 95.7    | 70.8     | done    |
