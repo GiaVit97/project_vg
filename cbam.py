@@ -43,13 +43,6 @@ class ChannelGate(nn.Module):
             elif pool_type=='max':
                 max_pool = F.max_pool2d( x, (x.size(2), x.size(3)), stride=(x.size(2), x.size(3)))
                 channel_att_raw = self.mlp( max_pool )
-            elif pool_type=='lp':
-                lp_pool = F.lp_pool2d( x, 2, (x.size(2), x.size(3)), stride=(x.size(2), x.size(3)))
-                channel_att_raw = self.mlp( lp_pool )
-            elif pool_type=='lse':
-                # LSE pool only
-                lse_pool = logsumexp_2d(x)
-                channel_att_raw = self.mlp( lse_pool )
 
             if channel_att_sum is None:
                 channel_att_sum = channel_att_raw
