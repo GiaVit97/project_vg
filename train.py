@@ -85,6 +85,9 @@ if args.optimizer=="SGD":
 else:
     logging.debug("using Adam optimizer")
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
+    
+if args.loss_function=="sos":
+    logging.debug("Using sos loss")
 criterion_triplet = nn.TripletMarginLoss(margin=args.margin, p=2, reduction="sum")
 
 best_r5 = 0
