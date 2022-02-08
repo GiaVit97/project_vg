@@ -165,7 +165,7 @@ while epoch_num < args.epochs_num and not_improved_num < args.patience:
                                                   features[negatives_indexes])
                 #add the sos loss term if specified
                 if args.loss_function=="sos":
-                    slam = 0.3 #verify the value  
+                    slam = 10 #verify the value  
                     loss_triplet +=  slam*torch.pow(sos_loss(features[queries_indexes],
                                               features[positives_indexes],
                                               features[negatives_indexes]), 0.5)
