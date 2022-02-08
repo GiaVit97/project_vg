@@ -11,6 +11,7 @@ from os.path import join
 from datetime import datetime
 from torch.utils.data.dataloader import DataLoader
 from os.path import exists
+from loss_function import sos_loss
 import h5py
 torch.backends.cudnn.benchmark= True  # Provides a speedup
 
@@ -162,6 +163,12 @@ while epoch_num < args.epochs_num and not_improved_num < args.patience:
                 loss_triplet += criterion_triplet(features[queries_indexes],
                                                   features[positives_indexes],
                                                   features[negatives_indexes])
+                #add the sos loss term if specified
+                if args.loss_function=="sos":
+                    slam = 0.3 #verify the value  
+                    loss_triplet +=  slam*torch.pow(sos_loss(features[queries_indexes],
+                                              features[positives_indexes],
+                                              features[negatives_indexes]), 0.5)
             del features
             loss_triplet /= (args.train_batch_size * args.negs_num_per_query)
             
