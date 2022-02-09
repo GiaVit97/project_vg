@@ -27,7 +27,8 @@ def parse_arguments():
 
     parser.add_argument("--optimizer", type=str, default="adam", choices=["adam","SGD"],
                          help="Which kind of optimizer to use")
-
+    parser.add_argument("--loss_function", type=str, default="triplet", help="Which kind of loss function to use")
+    parser.add_argument("--sos_lambda", type=int, default=10, help="lambda value for sos loss")
     # Other parameters
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--device", type=str, default="cuda", choices=["cuda", "cpu"])
@@ -38,6 +39,7 @@ def parse_arguments():
                         help="Recalls to be computed, such as R@5.")
 
     parser.add_argument("--num_clusters", type=int, default=64, help="Number of clusters for the NetVLAD layer")
+    
 
     # Paths parameters
     parser.add_argument("--datasets_folder", type=str, required=True, help="Path with datasets")
@@ -54,6 +56,7 @@ def parse_arguments():
     parser.add_argument("--data_aug", type=str, default=None, choices=["CS-HF", "H-RP", "B-GS-R", "GS", "BCSH"], help="Choose the type of data augmentation you want")
     parser.add_argument("--aug_prob", type=float, default=0.5, help="Probability to apply augmentation during training")
 
+
     # Images parameters
     parser.add_argument("--img_width", type=int, default=None, help="Width of images used")
     parser.add_argument("--img_height", type=int, default=None, help="Height of images used")
@@ -61,6 +64,10 @@ def parse_arguments():
     parser.add_argument("--test_datasets", type=str, default="pitts30k", help="List of test datasets, comma separated")
     parser.add_argument("--model_folder", type=str, default=None, help="Folder of the model used for test")
     parser.add_argument("--test_only", type=bool, default=False, help="Skip train")
+
+
+    parser.add_argument("--att", type=str, default='default', help="Attention layer (CBAM)")
+    
 
     args = parser.parse_args()
     
