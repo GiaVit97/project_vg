@@ -43,9 +43,11 @@ aug_transformations = {
     }
 
 
-def path_to_pil_img(path):
-    return Image.open(path).convert("RGB")
-
+def path_to_pil_img(path, width, height):
+    if width is None or height is None:
+        return Image.open(path).convert("RGB")
+    else:
+        return Image.open(path).resize((width, height)).convert("RGB")
 
 def collate_fn(batch):
     """Creates mini-batch tensors from the list of tuples (images, 
@@ -117,7 +119,7 @@ class BaseDataset(data.Dataset):
         self.queries_num  = len(self.queries_paths)
     
     def __getitem__(self, index):
-        img = path_to_pil_img(self.images_paths[index])
+        img = path_to_pil_img(self.images_paths[index], self.args.img_width, self.args.img_height)
         img = base_transform(img)
         return img, index
     
@@ -142,7 +144,10 @@ class TripletsDataset(BaseDataset):
         self.negs_num_per_query = negs_num_per_query  # Number of negatives per query in each batch
         self.neg_cache = [np.empty((0,), dtype=np.int32) for _ in range(self.queries_num)]
         self.is_inference = False
-        
+
+        if self.args.img_width is not None and self.args.img_height is not None:
+            logging.info(f"Images resized to {self.args.img_width}x{self.args.img_height}")
+
         # Find hard_positives_per_query, which are within train_positives_dist_threshold (10 meters)
         knn = NearestNeighbors(n_jobs=-1)
         knn.fit(self.database_utms)
@@ -174,13 +179,13 @@ class TripletsDataset(BaseDataset):
 
         if args.data_aug is not None and self.split == "train": # we apply these data augmentation only on training set
             aug_pipeline = self.aug_pipeline
-            query     =  aug_pipeline(path_to_pil_img(self.queries_paths[query_index]))
-            positive  =  aug_pipeline(path_to_pil_img(self.database_paths[best_positive_index]))
-            negatives = [aug_pipeline(path_to_pil_img(self.database_paths[i])) for i in neg_indexes]
+            query     =  aug_pipeline(path_to_pil_img(self.queries_paths[query_index], self.args.img_width, self.args.img_height))
+            positive  =  aug_pipeline(path_to_pil_img(self.database_paths[best_positive_index], self.args.img_width, self.args.img_height))
+            negatives = [aug_pipeline(path_to_pil_img(self.database_paths[i], self.args.img_width, self.args.img_height)) for i in neg_indexes]
         else:
-            query     =  base_transform(path_to_pil_img(self.queries_paths[query_index]))
-            positive  =  base_transform(path_to_pil_img(self.database_paths[best_positive_index]))
-            negatives = [base_transform(path_to_pil_img(self.database_paths[i])) for i in neg_indexes]
+            query     =  base_transform(path_to_pil_img(self.queries_paths[query_index], self.args.img_width, self.args.img_height))
+            positive  =  base_transform(path_to_pil_img(self.database_paths[best_positive_index], self.args.img_width, self.args.img_height))
+            negatives = [base_transform(path_to_pil_img(self.database_paths[i], self.args.img_width, self.args.img_height)) for i in neg_indexes]
 
 
         images = torch.stack((query, positive, *negatives), 0)
