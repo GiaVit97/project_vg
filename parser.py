@@ -27,7 +27,8 @@ def parse_arguments():
 
     parser.add_argument("--optimizer", type=str, default="adam", choices=["adam","SGD"],
                          help="Which kind of optimizer to use")
-
+    parser.add_argument("--loss_function", type=str, default="triplet", help="Which kind of loss function to use")
+    parser.add_argument("--sos_lambda", type=int, default=10, help="lambda value for sos loss")
     # Other parameters
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--device", type=str, default="cuda", choices=["cuda", "cpu"])
@@ -38,6 +39,7 @@ def parse_arguments():
                         help="Recalls to be computed, such as R@5.")
 
     parser.add_argument("--num_clusters", type=int, default=64, help="Number of clusters for the NetVLAD layer")
+    
 
     # Paths parameters
     parser.add_argument("--datasets_folder", type=str, required=True, help="Path with datasets")
